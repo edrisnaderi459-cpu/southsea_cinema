@@ -22,6 +22,11 @@ class MovieListing extends StatelessWidget {
             Text(
               'A team of astronauts travel through a wormhole in space in search of a new home for humanity.',
             ),
+            Row(
+              children: [
+                
+              ]
+            )
           ],
         ),
       ),
