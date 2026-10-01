@@ -15,7 +15,16 @@ class MovieListing extends StatelessWidget {
         elevation: 0,
       ),
       drawer: const NavDrawer(),
-      body: const SizedBox.shrink(),
+      body: Container(
+        child: Column(
+          children: [
+            Text('Interstellar'),
+            Text(
+              'A team of astronauts travel through a wormhole in space in search of a new home for humanity.',
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
