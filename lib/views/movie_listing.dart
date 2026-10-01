@@ -80,48 +80,97 @@ class _MovieListingState extends State<MovieListing> {
                 ),
               ),
               const SizedBox(height: 20),
-              Row(
-                children: [
-                  DropdownMenu<int>(
-                    initialSelection: 0,
-                    onSelected: (int? value) {
-                      if (value != null) {
-                        setState(() {
-                          _quantity = value;
-                        });
-                      }
-                    },
-                    dropdownMenuEntries: [
-                      DropdownMenuEntry(value: 0, label: '0'),
-                      DropdownMenuEntry(value: 1, label: '1'),
-                      DropdownMenuEntry(value: 2, label: '2'),
-                      DropdownMenuEntry(value: 3, label: '3'),
-                      DropdownMenuEntry(value: 4, label: '4'),
-                      DropdownMenuEntry(value: 5, label: '5'),
-                    ],
-                  ),
-                  const SizedBox(width: 16),
-                  const Text(
-                    'Adult (£7.50)',
-                    style: TextStyle(
-                      color: cinemaFontWhite,
-                      fontSize: 18,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _message = '$_quantity tickets added to the order';
-                      });
-                    },
-                    child: const Text('Add to order'),
-                  ),
-                ],
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  if (constraints.maxWidth > 600) {
+                    return Row(
+                      children: [
+                        DropdownMenu<int>(
+                          initialSelection: 0,
+                          onSelected: (int? value) {
+                            if (value != null) {
+                              setState(() {
+                                _quantity = value;
+                              });
+                            }
+                          },
+                          dropdownMenuEntries: [
+                            DropdownMenuEntry(value: 0, label: '0'),
+                            DropdownMenuEntry(value: 1, label: '1'),
+                            DropdownMenuEntry(value: 2, label: '2'),
+                            DropdownMenuEntry(value: 3, label: '3'),
+                            DropdownMenuEntry(value: 4, label: '4'),
+                            DropdownMenuEntry(value: 5, label: '5'),
+                          ],
+                        ),
+                        const SizedBox(width: 16),
+                        const Text(
+                          'Adult (£7.50)',
+                          style: TextStyle(
+                            color: cinemaFontWhite,
+                            fontSize: 18,
+                          ),
+                        ),
+                        const SizedBox(width: 40),
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _message =
+                                  '$_quantity tickets added to the order';
+                            });
+                          },
+                          child: const Text('Add to order'),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            DropdownMenu<int>(
+                              initialSelection: 0,
+                              onSelected: (int? value) {
+                                if (value != null) {
+                                  setState(() {
+                                    _quantity = value;
+                                  });
+                                }
+                              },
+                              dropdownMenuEntries: [
+                                DropdownMenuEntry(value: 0, label: '0'),
+                                DropdownMenuEntry(value: 1, label: '1'),
+                                DropdownMenuEntry(value: 2, label: '2'),
+                                DropdownMenuEntry(value: 3, label: '3'),
+                                DropdownMenuEntry(value: 4, label: '4'),
+                                DropdownMenuEntry(value: 5, label: '5'),
+                              ],
+                            ),
+                            const SizedBox(width: 16),
+                            const Text(
+                              'Adult (£7.50)',
+                              style: TextStyle(
+                                color: cinemaFontWhite,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 40),
+                        ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              _message =
+                                  '$_quantity tickets added to the order';
+                            });
+                          },
+                          child: const Text('Add to order'),
+                        ),
+                      ],
+                    );
+                  }
+                },
               ),
               Text(
                 _message,
