@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/models/movie.dart';
 
@@ -14,42 +15,120 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: cinemaSurface,
+      margin: const EdgeInsets.symmetric(
+        horizontal: 8,
+        vertical: 8,
+      ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              movie.image,
-              height: 250,
-              width: double.infinity,
-              fit: BoxFit.cover,
+            // Movie information
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Poster
+                SizedBox(
+                  width: 120,
+                  height: 180,
+                  child: Image.asset(
+                    movie.image,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+
+                const SizedBox(width: 16),
+
+                // Movie details
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '${movie.title} (${movie.year})',
+                        style: cinemaHeaderStyle,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        '(${movie.ageRating})',
+                        style: const TextStyle(
+                          color: cinemaFontMuted,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
+                        movie.description,
+                        style: const TextStyle(
+                          color: cinemaFontWhite,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 16),
-            Text(
-              '${movie.title} (${movie.year}) (${movie.ageRating})',
-              style: cinemaHeaderStyle,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              movie.description,
-              style: const TextStyle(
-                color: cinemaFontWhite,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 8),
+
+            const SizedBox(height: 28),
+
+            // Booking section
             const Text(
-              'Screening time: 7:30 PM',
+              'BOOK TICKETS',
               style: TextStyle(
-                color: cinemaFontMuted,
-                fontSize: 16,
+                color: cinemaFontWhite,
+                fontSize: 20,
               ),
             ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Book'),
+
+            const SizedBox(height: 18),
+
+            // Responsive date and button
+            LayoutBuilder(
+              builder: (context, constraints) {
+                // PHONE
+                if (constraints.maxWidth < 500) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        movie.screeningDate,
+                        style: const TextStyle(
+                          color: cinemaFontWhite,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: const Text('BOOK NOW'),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+
+                // TABLET / DESKTOP
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      movie.screeningDate,
+                      style: const TextStyle(
+                        color: cinemaFontWhite,
+                        fontSize: 16,
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('BOOK NOW'),
+                    ),
+                  ],
+                );
+              },
             ),
           ],
         ),
