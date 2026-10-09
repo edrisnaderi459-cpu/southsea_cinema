@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
+import 'package:southsea_cinema/models/movie.dart';
 
 class MovieListing extends StatefulWidget {
-  const MovieListing({super.key});
+  final Movie movie;
+
+  const MovieListing({super.key, required this.movie});
 
   @override
   State<MovieListing> createState() => _MovieListingState();
@@ -15,6 +18,8 @@ class _MovieListingState extends State<MovieListing> {
 
   @override
   Widget build(BuildContext context) {
+    final movie = widget.movie;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(appTitle, style: cinemaHeaderStyle),
@@ -25,13 +30,43 @@ class _MovieListingState extends State<MovieListing> {
       drawer: const NavDrawer(),
       body: Container(
         color: cinemaBackground,
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(height: 24),
+
+              // Movie poster
+              Image.asset(
+                movie.image,
+                width: 225,
+                height: 335,
+                fit: BoxFit.contain,
+              ),
+              const SizedBox(height: 24),
+
+              // Cinema room
+              const Text(
+                'Southsea Cinema Room',
+                style: TextStyle(
+                  color: cinemaFontWhite,
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(height: 8),
+
+              // Screening date and time
               Text(
-                'Interstellar (2014) (12A)',
+                movie.screeningDate,
+                style: const TextStyle(
+                  color: cinemaFontWhite,
+                  fontSize: 20,
+                ),
+              ),
+              const SizedBox(height: 32),
+              Text(
+                '${movie.title} (${movie.year}) (${movie.ageRating})',
                 style: const TextStyle(
                   color: cinemaFontWhite,
                   fontSize: 32,
@@ -40,15 +75,16 @@ class _MovieListingState extends State<MovieListing> {
               ),
               const SizedBox(height: 40),
               Text(
-                'Runtime: 2h 49m',
+                'Runtime: ${movie.runtime}',
                 style: const TextStyle(
                   color: cinemaFontWhite,
                   fontSize: 18,
                 ),
               ),
               const SizedBox(height: 40),
+              const SizedBox(height: 40),
               Text(
-                'A team of astronauts travel through a wormhole in space in search of a new home for humanity.',
+                movie.description,
                 style: const TextStyle(
                   color: cinemaFontWhite,
                   fontSize: 18,
