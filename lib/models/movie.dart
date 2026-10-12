@@ -21,9 +21,9 @@ class Movie {
     required this.price,
   });
 
-String get formattedPrice => '£${price.toStringAsFixed(2)}';
+  String get formattedPrice => '£${price.toStringAsFixed(2)}';
 
-bool get isChildFriendly => ageRating == 'U' || ageRating == 'PG';
+  bool get isChildFriendly => ageRating == 'U' || ageRating == 'PG';
 
-bool get isAdultOnly => ageRating == '18';
+  bool get isAdultOnly => ageRating == '18';
 }
