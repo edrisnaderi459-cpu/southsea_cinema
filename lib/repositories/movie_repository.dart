@@ -13,6 +13,7 @@ class MovieRepository {
             'A team of astronauts travel through a wormhole in space in search of a new home for humanity.',
         image: 'assets/images/intersteller.jpeg',
         screeningDate: 'Sunday 4 Oct 2026 15:00',
+        price: 6.00,
       ),
       const Movie(
         id: 'spiderman',
@@ -24,6 +25,7 @@ class MovieRepository {
             'A teenager gains spider-like abilities and uses them to fight crime and protect the people he cares about.',
         image: 'assets/images/spiderman.jpeg',
         screeningDate: 'Wednesday 7 Oct 2026 19:00',
+        price: 6.00,
       ),
     ];
   }

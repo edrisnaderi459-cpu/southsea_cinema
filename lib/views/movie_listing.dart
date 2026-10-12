@@ -104,10 +104,10 @@ class _MovieListingState extends State<MovieListing> {
                       builder: (context, constraints) {
                         final ticketSelector = Row(
                           children: [
-                            const Expanded(
+                            Expanded(
                               child: Text(
-                                'Tickets (£6.00 each)',
-                                style: TextStyle(
+                                'Tickets (${movie.formattedPrice} each)',
+                                style: const TextStyle(
                                   color: cinemaFontWhite,
                                   fontSize: 18,
                                 ),

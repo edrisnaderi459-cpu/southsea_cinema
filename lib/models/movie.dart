@@ -7,6 +7,7 @@ class Movie {
   final String description;
   final String image;
   final String screeningDate;
+  final double price;
 
   const Movie({
     required this.id,
@@ -17,5 +18,12 @@ class Movie {
     required this.description,
     required this.image,
     required this.screeningDate,
+    required this.price,
   });
+
+String get formattedPrice => '£${price.toStringAsFixed(2)}';
+
+bool get isChildFriendly => ageRating == 'U' || ageRating == 'PG';
+
+bool get isAdultOnly => ageRating == '18';
 }
