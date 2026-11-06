@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/models/movie.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
+import 'package:southsea_cinema/widgets/primary_button.dart';
 
 class MovieListing extends StatefulWidget {
   final Movie movie;
@@ -133,18 +134,8 @@ class _MovieListingState extends State<MovieListing> {
                           ],
                         );
 
-                        final addButton = ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: cinemaBrand,
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 24,
-                              vertical: 14,
-                            ),
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero,
-                            ),
-                          ),
+                        final addButton = PrimaryButton(
+                          label: 'Add to order',
                           onPressed: () {
                             setState(() {
                               _message = _quantity == 0
@@ -152,7 +143,6 @@ class _MovieListingState extends State<MovieListing> {
                                   : '$_quantity tickets added to the order';
                             });
                           },
-                          child: const Text('Add to order'),
                         );
 
                         if (constraints.maxWidth > 600) {
