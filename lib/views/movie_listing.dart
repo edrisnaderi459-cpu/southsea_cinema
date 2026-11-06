@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/models/movie.dart';
+import 'package:southsea_cinema/repositories/basket_repository.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
 import 'package:southsea_cinema/widgets/primary_button.dart';
 
@@ -137,10 +138,25 @@ class _MovieListingState extends State<MovieListing> {
                         final addButton = PrimaryButton(
                           label: 'Add to order',
                           onPressed: () {
+                            if (_quantity == 0) {
+                              setState(() {
+                                _message =
+                                    'Please select at least one ticket';
+                              });
+                              return;
+                            }
+
+                            for (int i = 0; i < _quantity; i++) {
+                              BasketRepository.instance.addTicket(
+                                movieTitle: movie.title,
+                                ticketPrice: movie.price,
+                              );
+                            }
+
                             setState(() {
-                              _message = _quantity == 0
-                                  ? 'Please select at least one ticket'
-                                  : '$_quantity tickets added to the order';
+                              _message =
+                                  '$_quantity tickets added to the order';
+                              _quantity = 0;
                             });
                           },
                         );
