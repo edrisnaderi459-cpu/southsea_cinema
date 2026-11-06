@@ -16,11 +16,13 @@ class BasketRepository {
   void addTicket({
     required String movieTitle,
     required double ticketPrice,
+    String screeningDate = '',
   }) {
     final index = _items.indexWhere(
       (item) =>
           item.movieTitle == movieTitle &&
-          item.ticketPrice == ticketPrice,
+          item.ticketPrice == ticketPrice &&
+          item.screeningDate == screeningDate,
     );
 
     if (index != -1) {
@@ -30,6 +32,7 @@ class BasketRepository {
         BasketItem(
           movieTitle: movieTitle,
           ticketPrice: ticketPrice,
+          screeningDate: screeningDate,
         ),
       );
     }
@@ -49,6 +52,14 @@ class BasketRepository {
     } else {
       _items.removeAt(index);
     }
+  }
+
+  void removeAllTickets(String movieTitle, String screeningDate) {
+    _items.removeWhere(
+      (item) =>
+          item.movieTitle == movieTitle &&
+          item.screeningDate == screeningDate,
+    );
   }
 
   void clearBasket() {

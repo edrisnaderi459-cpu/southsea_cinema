@@ -150,6 +150,7 @@ class _MovieListingState extends State<MovieListing> {
                               BasketRepository.instance.addTicket(
                                 movieTitle: movie.title,
                                 ticketPrice: movie.price,
+                                screeningDate: movie.screeningDate,
                               );
                             }
 
