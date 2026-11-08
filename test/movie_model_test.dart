@@ -15,6 +15,75 @@ void main() {
       price: 6.00,
     );
 
+    group('fromJson', () {
+      test('creates a movie from JSON', () {
+        final json = {
+          'id': 'interstellar',
+          'title': 'Interstellar',
+          'year': 2014,
+          'ageRating': '12A',
+          'runtime': '2h 49m',
+          'description': 'A team of astronauts travel through a wormhole.',
+          'image': 'assets/images/intersteller.jpeg',
+          'screeningDate': 'Sunday 4 Oct 2026 15:00',
+          'price': 6.00,
+        };
+
+        final movie = Movie.fromJson(json);
+
+        expect(movie.id, 'interstellar');
+        expect(movie.title, 'Interstellar');
+        expect(movie.year, 2014);
+        expect(movie.ageRating, '12A');
+        expect(movie.runtime, '2h 49m');
+        expect(
+          movie.description,
+          'A team of astronauts travel through a wormhole.',
+        );
+        expect(movie.image, 'assets/images/intersteller.jpeg');
+        expect(movie.screeningDate, 'Sunday 4 Oct 2026 15:00');
+        expect(movie.price, 6.00);
+      });
+
+      test('handles whole-number prices', () {
+        final json = {
+          'id': 'interstellar',
+          'title': 'Interstellar',
+          'year': 2014,
+          'ageRating': '12A',
+          'runtime': '2h 49m',
+          'description': 'A team of astronauts travel through a wormhole.',
+          'image': 'assets/images/intersteller.jpeg',
+          'screeningDate': 'Sunday 4 Oct 2026 15:00',
+          'price': 6,
+        };
+
+        final movie = Movie.fromJson(json);
+
+        expect(movie.price, 6.0);
+        expect(movie.price, isA<double>());
+      });
+    });
+
+    group('toJson', () {
+      test('converts a movie to JSON', () {
+        final json = movie.toJson();
+
+        expect(json['id'], 'interstellar');
+        expect(json['title'], 'Interstellar');
+        expect(json['year'], 2014);
+        expect(json['ageRating'], '12A');
+        expect(json['runtime'], '2h 49m');
+        expect(
+          json['description'],
+          'A team of astronauts travel through a wormhole.',
+        );
+        expect(json['image'], 'assets/images/intersteller.jpeg');
+        expect(json['screeningDate'], 'Sunday 4 Oct 2026 15:00');
+        expect(json['price'], 6.0);
+      });
+    });
+
     group('Constructor', () {
       test('assigns properties correctly', () {
         expect(movie.id, 'interstellar');

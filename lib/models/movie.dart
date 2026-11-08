@@ -26,4 +26,32 @@ class Movie {
   bool get isChildFriendly => ageRating == 'U' || ageRating == 'PG';
 
   bool get isAdultOnly => ageRating == '18';
+
+  factory Movie.fromJson(Map<String, dynamic> json) {
+    return Movie(
+      id: json['id'],
+      title: json['title'],
+      year: json['year'],
+      ageRating: json['ageRating'],
+      runtime: json['runtime'],
+      description: json['description'],
+      image: json['image'],
+      screeningDate: json['screeningDate'],
+      price: (json['price'] as num).toDouble(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'year': year,
+      'ageRating': ageRating,
+      'runtime': runtime,
+      'description': description,
+      'image': image,
+      'screeningDate': screeningDate,
+      'price': price,
+    };
+  }
 }

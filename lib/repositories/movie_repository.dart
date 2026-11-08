@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:flutter/services.dart';
 import 'package:southsea_cinema/models/movie.dart';
 
 class MovieRepository {
@@ -45,5 +47,14 @@ class MovieRepository {
 
   List<Movie> getMoviesUnderPrice(double maxPrice) {
     return getMovies().where((movie) => movie.price < maxPrice).toList();
+  }
+
+  Future<List<Movie>> loadMoviesFromAsset() async {
+    final String jsonString =
+        await rootBundle.loadString('assets/data/movies.json');
+
+    final List<dynamic> jsonList = jsonDecode(jsonString);
+
+    return jsonList.map((json) => Movie.fromJson(json)).toList();
   }
 }
