@@ -57,8 +57,7 @@ class BasketRepository {
   void removeAllTickets(String movieTitle, String screeningDate) {
     _items.removeWhere(
       (item) =>
-          item.movieTitle == movieTitle &&
-          item.screeningDate == screeningDate,
+          item.movieTitle == movieTitle && item.screeningDate == screeningDate,
     );
   }
 

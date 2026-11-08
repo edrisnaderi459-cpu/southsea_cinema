@@ -140,8 +140,7 @@ class _MovieListingState extends State<MovieListing> {
                           onPressed: () {
                             if (_quantity == 0) {
                               setState(() {
-                                _message =
-                                    'Please select at least one ticket';
+                                _message = 'Please select at least one ticket';
                               });
                               return;
                             }
