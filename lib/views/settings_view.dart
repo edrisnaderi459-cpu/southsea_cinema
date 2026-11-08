@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/models/user_settings.dart';
@@ -24,23 +25,21 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   void initState() {
     super.initState();
+
+    _addressController = TextEditingController();
+    _emailController = TextEditingController();
+    _patronNumberController = TextEditingController();
+
     _loadSettings();
   }
 
-  void _loadSettings() {
-    final settings = UserSettingsRepository.instance.settings;
+  Future<void> _loadSettings() async {
+    final settings =
+        await UserSettingsRepository.instance.loadSettings();
 
-    _addressController = TextEditingController(text: settings.address);
-    _emailController = TextEditingController(text: settings.email);
-    _patronNumberController =
-        TextEditingController(text: settings.patronNumber);
-    _receiveNews = settings.receiveNews;
-  }
+    if (!mounted) return;
 
-  void _cancelChanges() {
     setState(() {
-      final settings = UserSettingsRepository.instance.settings;
-
       _addressController.text = settings.address;
       _emailController.text = settings.email;
       _patronNumberController.text = settings.patronNumber;
@@ -48,7 +47,11 @@ class _SettingsViewState extends State<SettingsView> {
     });
   }
 
-  void _saveSettings() {
+  void _cancelChanges() {
+    _loadSettings();
+  }
+
+  Future<void> _saveSettings() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -60,7 +63,9 @@ class _SettingsViewState extends State<SettingsView> {
       receiveNews: _receiveNews,
     );
 
-    UserSettingsRepository.instance.saveSettings(settings);
+    await UserSettingsRepository.instance.saveSettings(settings);
+
+    if (!mounted) return;
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
